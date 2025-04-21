@@ -1,6 +1,17 @@
+# filepath: /Users/felipesimione/Documents/jornada_dados_projetos/docker_infra/Dockerfile
 FROM python:3.13-slim
-COPY . /src
-WORKDIR /src
-RUN pip install -r requirements.txt
+
+# Instalar dependências
+RUN pip install streamlit
+
+# Copiar o código da aplicação
+COPY app.py /app/app.py
+
+# Definir o diretório de trabalho
+WORKDIR /app
+
+# Expor a porta usada pelo Streamlit
 EXPOSE 8501
-ENTRYPOINT [ "run","streamlit","run","app/app.py","--server.port=8501","--server.address=0.0.0.0" ]
+
+# Comando para rodar o Streamlit
+CMD ["streamlit", "run", "app.py"]
